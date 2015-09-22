@@ -39,7 +39,7 @@
         }
       }
     ],
-    
+    "steps": [],
     "outputs": {
       "clusterName": "[basics('clusterName')]",
       "adminUsername": "[basics('adminUsername')]",
