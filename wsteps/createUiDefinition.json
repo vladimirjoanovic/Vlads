@@ -1,0 +1,192 @@
+{
+    "handler": "Microsoft.Compute.MultiVm",
+    "version": "0.0.1-preview",
+    "parameters": {
+        "basics": [
+            {
+                "name": "clusterName",
+                "type": "Microsoft.Common.TextBox",
+                "label": "Azure Container service name",
+                "toolTip": "The name of the new Azure Container service.",
+                "constraints": {
+                    "required": true,
+                    "regex": "^[a-z0-9]{3,24}$",
+                    "validationMessage": "Cluster names must be between 3 and 24 characters long, and can contain only numbers and lowercase letters."
+                }
+            },
+            {
+                "name": "adminUsername",
+                "type": "Microsoft.Compute.UserNameTextBox",
+                "label": "Username",
+                "toolTip": "Admin username for the virtual machines.",
+                "osPlatform": "Linux"
+            },
+            {
+                "name": "adminPassword",
+                "type": "Microsoft.Common.PasswordBox",
+                "label": {
+                    "password": "Password",
+                    "confirmPassword": "Confirm password"
+                },
+                "toolTip": "Admin password for the virtual machines.",
+                "constraints": {
+                    "required": true,
+                    "regex": "^(?:(?=.*[a-z])(?:(?=.*[A-Z])(?=.*[\\d\\W])|(?=.*\\W)(?=.*\\d))|(?=.*\\W)(?=.*[A-Z])(?=.*\\d)).{6,72}$",
+                    "validationMessage": "The password must be between 6 and 72 characters long, and contain characters from at least 3 of the following groups: uppercase characters, lowercase characters, numbers, and special characters."
+                },
+                "options": {
+                    "hideConfirmation": false
+                }
+            }
+        ],
+        "steps": [ 
+            {
+        "name": "azureContainerServiceConfig",
+        "label": "Azure Container Service settings",
+        "subLabel": {
+          "preValidation": "Configure the container service",
+          "postValidation": "Done"
+        },
+        "bladeTitle": "Azure Container service settings",
+        "elements": [
+          {
+            "name": "agentNodeCount",
+            "type": "Microsoft.Common.DropDown",
+            "label": "Agent count",
+            "defaultValue": "2",
+            "toolTip": "The number of virtual machines (nodes) to provision.",
+            "constraints": {
+              "allowedValues": [
+                {
+                  "label": "2",
+                  "value": 2
+                },
+                {
+                  "label": "3",
+                  "value": 3
+                },
+                {
+                  "label": "4",
+                  "value": 4
+                },
+                {
+                  "label": "5",
+                  "value": 5
+                }   
+              ]
+            }
+          },
+            {
+                "name": "agentVmSize",
+                "type": "Microsoft.Compute.SizeSelector",
+                "label": "Agent virtual machine size",
+                "toolTip": "The size of virtual machine to provision for each agent node.",
+                "recommendedSizes": [
+                    "Standard_D12",
+                    "Standard_D13",
+                    "Standard_D14",
+                    "Standard_G2",
+                    "Standard_G3",
+                    "Standard_G4",
+                    "Standard_G5"
+                ],
+                "constraints": {
+                    "allowedSizes": [
+                        "Standard_D12",
+                        "Standard_D13",
+                        "Standard_D14",
+                        "Standard_G2",
+                        "Standard_G3",
+                        "Standard_G4",
+                        "Standard_G5"
+                    ]
+                },
+                "osPlatform": "Linux",
+                "imageReference": {
+                    "publisher": "Canonical",
+                    "offer": "UbuntuServer",
+                    "sku": "14.04.2-LTS"
+                },
+                "count": "[steps('azureContainerServiceConfig').agentNodeCount]"
+            },
+            {
+            "name": "masterNodeCount",
+            "type": "Microsoft.Common.DropDown",
+            "label": "Master count",
+            "defaultValue": "2",
+            "toolTip": "The number of virtual machines (nodes) to provision.",
+            "constraints": {
+              "allowedValues": [
+                {
+                  "label": "2",
+                  "value": 2
+                },
+                {
+                  "label": "3",
+                  "value": 3
+                },
+                {
+                  "label": "4",
+                  "value": 4
+                },
+                {
+                  "label": "5",
+                  "value": 5
+                }   
+              ]
+            }
+          },
+            {
+                "name": "agentVmSize",
+                "type": "Microsoft.Compute.SizeSelector",
+                "label": "Agent virtual machine size",
+                "toolTip": "The size of virtual machine to provision for each agent node.",
+                "recommendedSizes": [
+                    "Standard_D12",
+                    "Standard_D13",
+                    "Standard_D14",
+                    "Standard_G2",
+                    "Standard_G3",
+                    "Standard_G4",
+                    "Standard_G5"
+                ],
+                "constraints": {
+                    "allowedSizes": [
+                        "Standard_D12",
+                        "Standard_D13",
+                        "Standard_D14",
+                        "Standard_G2",
+                        "Standard_G3",
+                        "Standard_G4",
+                        "Standard_G5"
+                    ]
+                },
+                "osPlatform": "Linux",
+                "imageReference": {
+                    "publisher": "Canonical",
+                    "offer": "UbuntuServer",
+                    "sku": "14.04.2-LTS"
+                },
+                "count": "[steps('azureContainerServiceConfig').masterNodeCount]"
+            },
+          {
+            "name": "dnsNameforPublicIp",
+            "type": "Microsoft.Common.TextBox",
+            "label": "DNS Name for Public IP",
+            "toolTip": "DNS Name for Public IP",
+            "constraints": {
+              "required": true,
+              "validationMessage": "Enter in a valid DNS name"
+            }
+          }
+        ]
+      }
+        ],
+        "outputs": {
+            "clusterName": "[basics('clusterName')]",
+            "adminUsername": "[basics('adminUsername')]",
+            "adminPassword": "[basics('adminPassword')]",
+            "region": "[location()]"
+        }
+    }
+}
