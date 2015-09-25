@@ -53,20 +53,6 @@
                 "bladeTitle": "Azure Container service settings",
                 "elements": [
 
-                    {
-                        "name": "businessPhone",
-                        "type": "Microsoft.Common.TextBox",
-                        "label": "Business Phone",
-                        "toolTip": "Provide your business phone number, digits only",
-                        "constraints": {
-                            "required": true,
-                            "regex": "^[0-9]+$",
-                            "validationMessage": "please input digits only, no space, - or ()"
-                        },
-                        "options": {
-                            "hideConfirmation": false
-                        }
-                    },
                    
 
                     {
@@ -88,7 +74,7 @@
                         "name": "agentVmSize",
                         "type": "Microsoft.Compute.SizeSelector",
                         "label": "Agent virtual machine size",
-                        "toolTip": "The size of virtual machine to provision for each agent node.",
+                        "toolTip": "The size of virtual machine masters to provision.",
                         "recommendedSizes": [
                             "Standard_D1",
                             "Standard_D2",
@@ -112,8 +98,8 @@
                             "publisher": "Canonical",
                             "offer": "UbuntuServer",
                             "sku": "14.04.2-LTS"
-                        },
-                        "count": ""
+                        }
+                        
                     },
                     
                     {
@@ -167,8 +153,7 @@
                             "publisher": "Canonical",
                             "offer": "UbuntuServer",
                             "sku": "14.04.2-LTS"
-                        },
-                        "count": ""
+                        }
                     },
                     {
                         "name": "dnsNameforPublicIp",
