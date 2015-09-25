@@ -19,7 +19,10 @@
                 "type": "Microsoft.Compute.UserNameTextBox",
                 "label": "Username",
                 "toolTip": "Admin username for the virtual machines.",
-                "osPlatform": "Linux"
+                "osPlatform": "Linux",
+                "constraints": {
+                    "required": true
+                }
             },
             {
                 "name": "adminPassword",
@@ -39,148 +42,256 @@
                 }
             }
         ],
-        "steps": [ 
+        "steps": [
             {
-        "name": "azureContainerServiceConfig",
-        "label": "Azure Container Service settings",
-        "subLabel": {
-          "preValidation": "Configure the container service",
-          "postValidation": "Done"
-        },
-        "bladeTitle": "Azure Container service settings",
-        "elements": [
-          {
-            "name": "agentNodeCount",
-            "type": "Microsoft.Common.DropDown",
-            "label": "Agent count",
-            "defaultValue": "2",
-            "toolTip": "The number of virtual machines (nodes) to provision.",
-            "constraints": {
-              "allowedValues": [
-                {
-                  "label": "2",
-                  "value": 2
+                "name": "azureContainerServiceConfig",
+                "label": "Azure Container Service settings",
+                "subLabel": {
+                    "preValidation": "Configure the container service",
+                    "postValidation": "Done"
                 },
-                {
-                  "label": "3",
-                  "value": 3
-                },
-                {
-                  "label": "4",
-                  "value": 4
-                },
-                {
-                  "label": "5",
-                  "value": 5
-                }   
-              ]
-            }
-          },
-            {
-                "name": "agentVmSize",
-                "type": "Microsoft.Compute.SizeSelector",
-                "label": "Agent virtual machine size",
-                "toolTip": "The size of virtual machine to provision for each agent node.",
-                "recommendedSizes": [
-                    "Standard_D12",
-                    "Standard_D13",
-                    "Standard_D14",
-                    "Standard_G2",
-                    "Standard_G3",
-                    "Standard_G4",
-                    "Standard_G5"
-                ],
-                "constraints": {
-                    "allowedSizes": [
-                        "Standard_D12",
-                        "Standard_D13",
-                        "Standard_D14",
-                        "Standard_G2",
-                        "Standard_G3",
-                        "Standard_G4",
-                        "Standard_G5"
-                    ]
-                },
-                "osPlatform": "Linux",
-                "imageReference": {
-                    "publisher": "Canonical",
-                    "offer": "UbuntuServer",
-                    "sku": "14.04.2-LTS"
-                },
-                "count": "[steps('azureContainerServiceConfig').agentNodeCount]"
+                "bladeTitle": "Azure Container service settings",
+                "elements": [
+
+                    {
+                        "name": "businessPhone",
+                        "type": "Microsoft.Common.TextBox",
+                        "label": "Business Phone",
+                        "toolTip": "Provide your business phone number, digits only",
+                        "constraints": {
+                            "required": true,
+                            "regex": "^[0-9]+$",
+                            "validationMessage": "please input digits only, no space, - or ()"
+                        },
+                        "options": {
+                            "hideConfirmation": false
+                        }
+                    },
+                   
+
+                    {
+                        "name": "agentNodeCount",
+                        "type": "Microsoft.Common.TextBox",
+                        "label": "Agent count",
+                        "defaultValue": "2",
+                        "toolTip": "The number of virtual machines agents to provision.",
+                        "constraints": {
+                            "required": true,
+                            "regex": "^[0-9]+$",
+                            "validationMessage": "Must be an integer"
+                        }
+                        
+                    },
+
+
+                    {
+                        "name": "agentVmSize",
+                        "type": "Microsoft.Compute.SizeSelector",
+                        "label": "Agent virtual machine size",
+                        "toolTip": "The size of virtual machine to provision for each agent node.",
+                        "recommendedSizes": [
+                            "Standard_D1",
+                            "Standard_D2",
+                            "Standard_D3",
+                            "Standard_D4",
+                            "Standard_D11",
+                            "Standard_D12"
+                        ],
+                        "constraints": {
+                            "allowedSizes": [
+                                "Standard_D1",
+                                "Standard_D2",
+                                "Standard_D3",
+                                "Standard_D4",
+                                "Standard_D11",
+                                "Standard_D12"
+                            ]
+                        },
+                        "osPlatform": "Linux",
+                        "imageReference": {
+                            "publisher": "Canonical",
+                            "offer": "UbuntuServer",
+                            "sku": "14.04.2-LTS"
+                        },
+                        "count": ""
+                    },
+                    
+                    {
+                        "name": "masterNodeCount",
+                        "type": "Microsoft.Common.DropDown",
+                        "label": "Master count",
+                        "defaultValue": "1",
+                        "toolTip": "The number of virtual machines (nodes) to provision.",
+                        "constraints": {
+                            "allowedValues": [
+                                {
+                                    "label": "1",
+                                    "value": 1
+                                },
+                                {
+                                    "label": "3",
+                                    "value": 3
+                                },
+                                {
+                                    "label": "5",
+                                    "value": 5
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "name": "masterVmSize",
+                        "type": "Microsoft.Compute.SizeSelector",
+                        "label": "Master virtual machine size",
+                        "toolTip": "The size of virtual machine to provision for each master node.",
+                        "recommendedSizes": [
+                            "Standard_D1",
+                            "Standard_D2",
+                            "Standard_D3",
+                            "Standard_D4",
+                            "Standard_D11",
+                            "Standard_D12"
+                        ],
+                        "constraints": {
+                            "allowedSizes": [
+                                "Standard_D1",
+                                "Standard_D2",
+                                "Standard_D3",
+                                "Standard_D4",
+                                "Standard_D11",
+                                "Standard_D12"
+                            ]
+                        },
+                        "osPlatform": "Linux",
+                        "imageReference": {
+                            "publisher": "Canonical",
+                            "offer": "UbuntuServer",
+                            "sku": "14.04.2-LTS"
+                        },
+                        "count": ""
+                    },
+                    {
+                        "name": "dnsNameforPublicIp",
+                        "type": "Microsoft.Common.TextBox",
+                        "label": "DNS Name for Public IP",
+                        "toolTip": "DNS Name for Public IP",
+                        "constraints": {
+                            "required": true,
+                            "validationMessage": "Enter in a valid DNS name"
+                        }
+                    }
+                ]
             },
+
             {
-            "name": "masterNodeCount",
-            "type": "Microsoft.Common.DropDown",
-            "label": "Master count",
-            "defaultValue": "2",
-            "toolTip": "The number of virtual machines (nodes) to provision.",
-            "constraints": {
-              "allowedValues": [
-                {
-                  "label": "2",
-                  "value": 2
+                "name": "frameworkConfig",
+                "label": "Framework and Jumpbox configuration",
+                "subLabel": {
+                    "preValidation": "Provide framework and jumpbox information",
+                    "postValidation": "Done"
                 },
-                {
-                  "label": "3",
-                  "value": 3
-                },
-                {
-                  "label": "4",
-                  "value": 4
-                },
-                {
-                  "label": "5",
-                  "value": 5
-                }   
-              ]
-            }
-          },
-            {
-                "name": "masterVmSize",
-                "type": "Microsoft.Compute.SizeSelector",
-                "label": "Master virtual machine size",
-                "toolTip": "The size of virtual machine to provision for each master node.",
-                "recommendedSizes": [
-                    "Standard_D12",
-                    "Standard_D13",
-                    "Standard_D14",
-                    "Standard_G2",
-                    "Standard_G3",
-                    "Standard_G4",
-                    "Standard_G5"
-                ],
-                "constraints": {
-                    "allowedSizes": [
-                        "Standard_D12",
-                        "Standard_D13",
-                        "Standard_D14",
-                        "Standard_G2",
-                        "Standard_G3",
-                        "Standard_G4",
-                        "Standard_G5"
+                "bladeTitle": " Framework and Jumpbox configuration",
+                "elements": [
+
+                    {
+                        "name": "jumpboxConfig",
+                        "type": "Microsoft.Common.OptionsGroup",
+                        "label": "Jumpbox Configuration",
+                        "defaultValue": "windows",
+                        "toolTip": "Choose to have a jumpbox for debugging on the private subnet.",
+                        "constraints": {
+                            "allowedValues": [
+                                {
+                                    "label": "Windows",
+                                    "value": "windows"
+                                },
+                                {
+                                    "label": "Linux",
+                                    "value": "linux"
+                                },
+                                {
+                                    "label": "None",
+                                    "value": "none"
+                                }
+                            ]
+                        }
+                    },
+                                       {
+  "name": "swarmConfig",
+  "type": "Microsoft.Common.OptionsGroup",
+  "label": "Swarm Configuration",
+  "defaultValue": "false",
+  "toolTip": "Flag for enabling the Docker Swarm framework.",
+  "constraints": {
+    "allowedValues": [
+      {
+        "label": "Enabled",
+        "value": "true"
+      },
+        {
+            "label": "Disabled",
+            "value": "false"
+        }
+        
+    ]
+  }
+},
+                    {
+                        "name": "marathonConfig",
+                        "type": "Microsoft.Common.OptionsGroup",
+                        "label": "Marathon Configuration",
+                        "defaultValue": "true",
+                        "toolTip": "Flag for enabling the Marathon framework.",
+                        "constraints": {
+                            "allowedValues": [
+                                {
+                                    "label": "Enabled",
+                                    "value": "true"
+                                },
+                                {
+                                    "label": "Disabled",
+                                    "value": "false"
+                                }
+
+                            ]
+                        }
+                    },  
+                    
+                    {
+                        "name": "chronosConfig",
+                        "type": "Microsoft.Common.OptionsGroup",
+                        "label": "Chronos Configuration",
+                        "defaultValue": "true",
+                        "toolTip": "Flag for enabling the Chronos framework.",
+                        "constraints": {
+                            "allowedValues": [
+                                {
+                                    "label": "Enabled",
+                                    "value": "true"
+                                },
+                                {
+                                    "label": "Disabled",
+                                    "value": "false"
+                                }
+
+                            ]
+                        }
+                    },  
+                             
+                     {
+                        "name": "dnsNameforJumpbox",
+                        "type": "Microsoft.Common.TextBox",
+                        "label": "DNS Name for Jumpbox Public IP",
+                        "toolTip": "Sets the Domain name label for the jumpbox.  The concatenation of the domain name label and the regionalized DNS zone make",
+                        "constraints": {
+                            "required": true,
+                            "validationMessage": "Enter in a valid DNS name"
+                        }
+                    }
+                  
+
                     ]
-                },
-                "osPlatform": "Linux",
-                "imageReference": {
-                    "publisher": "Canonical",
-                    "offer": "UbuntuServer",
-                    "sku": "14.04.2-LTS"
-                },
-                "count": "[steps('azureContainerServiceConfig').masterNodeCount]"
-            },
-          {
-            "name": "dnsNameforPublicIp",
-            "type": "Microsoft.Common.TextBox",
-            "label": "DNS Name for Public IP",
-            "toolTip": "DNS Name for Public IP",
-            "constraints": {
-              "required": true,
-              "validationMessage": "Enter in a valid DNS name"
             }
-          }
-        ]
-      }
         ],
         "outputs": {
             "clusterName": "[basics('clusterName')]",
