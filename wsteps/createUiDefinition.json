@@ -137,10 +137,10 @@
             }
           },
             {
-                "name": "agentVmSize",
+                "name": "masterVmSize",
                 "type": "Microsoft.Compute.SizeSelector",
-                "label": "Agent virtual machine size",
-                "toolTip": "The size of virtual machine to provision for each agent node.",
+                "label": "Master virtual machine size",
+                "toolTip": "The size of virtual machine to provision for each master node.",
                 "recommendedSizes": [
                     "Standard_D12",
                     "Standard_D13",
