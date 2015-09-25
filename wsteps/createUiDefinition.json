@@ -98,7 +98,8 @@
                             "publisher": "Canonical",
                             "offer": "UbuntuServer",
                             "sku": "14.04.2-LTS"
-                        }
+                        },
+            "count": "[steps('azureContainerServiceConfig').agentNodeCount]"
                         
                     },
                     
@@ -153,7 +154,8 @@
                             "publisher": "Canonical",
                             "offer": "UbuntuServer",
                             "sku": "14.04.2-LTS"
-                        }
+                        },
+            "count": "[steps('azureContainerServiceConfig').masterNodeCount]"
                     },
                     {
                         "name": "dnsNameforPublicIp",
