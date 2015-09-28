@@ -45,7 +45,7 @@
         "steps": [
             {
                 "name": "azureContainerServiceConfig",
-                "label": "Azure Container Service settings",
+                "label": "Azure Container service settings",
                 "subLabel": {
                     "preValidation": "Configure the container service",
                     "postValidation": "Done"
@@ -53,7 +53,7 @@
                 "bladeTitle": "Azure Container service settings",
                 "elements": [
 
-                   
+
 
                     {
                         "name": "agentNodeCount",
@@ -66,7 +66,7 @@
                             "regex": "^[0-9]+$",
                             "validationMessage": "Must be an integer"
                         }
-                        
+
                     },
 
 
@@ -99,10 +99,10 @@
                             "offer": "UbuntuServer",
                             "sku": "14.04.2-LTS"
                         },
-            "count": "[steps('azureContainerServiceConfig').agentNodeCount]"
-                        
+                        "count": "[steps('azureContainerServiceConfig').agentNodeCount]"
+
                     },
-                    
+
                     {
                         "name": "masterNodeCount",
                         "type": "Microsoft.Common.DropDown",
@@ -155,13 +155,13 @@
                             "offer": "UbuntuServer",
                             "sku": "14.04.2-LTS"
                         },
-            "count": "[steps('azureContainerServiceConfig').masterNodeCount]"
+                        "count": "[steps('azureContainerServiceConfig').masterNodeCount]"
                     },
                     {
                         "name": "dnsNameforPublicIp",
                         "type": "Microsoft.Common.TextBox",
-                        "label": "DNS Name for Public IP",
-                        "toolTip": "DNS Name for Public IP",
+                        "label": "DNS prefix for container service",
+                        "toolTip": "DNS prefix for container service",
                         "constraints": {
                             "required": true,
                             "validationMessage": "Enter in a valid DNS name"
@@ -174,7 +174,7 @@
                 "name": "frameworkConfig",
                 "label": "Framework and Jumpbox configuration",
                 "subLabel": {
-                    "preValidation": "Provide framework and jumpbox information",
+                    "preValidation": "Provide Framework & Jumpbox information",
                     "postValidation": "Done"
                 },
                 "bladeTitle": " Framework and Jumpbox configuration",
@@ -183,9 +183,9 @@
                     {
                         "name": "jumpboxConfig",
                         "type": "Microsoft.Common.OptionsGroup",
-                        "label": "Jumpbox Configuration",
-                        "defaultValue": "windows",
-                        "toolTip": "Choose to have a jumpbox for debugging on the private subnet.",
+                        "label": "Jumpbox configuration",
+                        "defaultValue": "linux",
+                        "toolTip": "Choose to have a Jumpbox for debugging on the private subnet.",
                         "constraints": {
                             "allowedValues": [
                                 {
@@ -203,30 +203,30 @@
                             ]
                         }
                     },
-                                       {
-  "name": "swarmConfig",
-  "type": "Microsoft.Common.OptionsGroup",
-  "label": "Swarm Configuration",
-  "defaultValue": "false",
-  "toolTip": "Flag for enabling the Docker Swarm framework.",
-  "constraints": {
-    "allowedValues": [
-      {
-        "label": "Enabled",
-        "value": "true"
-      },
-        {
-            "label": "Disabled",
-            "value": "false"
-        }
-        
-    ]
-  }
-},
+                    {
+                        "name": "swarmConfig",
+                        "type": "Microsoft.Common.OptionsGroup",
+                        "label": "Swarm configuration",
+                        "defaultValue": "false",
+                        "toolTip": "Flag for enabling the Docker Swarm framework.",
+                        "constraints": {
+                            "allowedValues": [
+                                {
+                                    "label": "Enabled",
+                                    "value": "true"
+                                },
+                                {
+                                    "label": "Disabled",
+                                    "value": "false"
+                                }
+
+                            ]
+                        }
+                    },
                     {
                         "name": "marathonConfig",
                         "type": "Microsoft.Common.OptionsGroup",
-                        "label": "Marathon Configuration",
+                        "label": "Marathon configuration",
                         "defaultValue": "true",
                         "toolTip": "Flag for enabling the Marathon framework.",
                         "constraints": {
@@ -242,12 +242,12 @@
 
                             ]
                         }
-                    },  
-                    
+                    },
+
                     {
                         "name": "chronosConfig",
                         "type": "Microsoft.Common.OptionsGroup",
-                        "label": "Chronos Configuration",
+                        "label": "Chronos configuration",
                         "defaultValue": "true",
                         "toolTip": "Flag for enabling the Chronos framework.",
                         "constraints": {
@@ -263,21 +263,21 @@
 
                             ]
                         }
-                    },  
-                             
-                     {
+                    },
+
+                    {
                         "name": "dnsNameforJumpbox",
                         "type": "Microsoft.Common.TextBox",
-                        "label": "DNS Name for Jumpbox Public IP",
-                        "toolTip": "Sets the Domain name label for the jumpbox.  The concatenation of the domain name label and the regionalized DNS zone make",
+                    
+                        "label": "DNS prefix for Jumpbox",
+                        "toolTip": "Sets the domain name label for the Jumpbox.  The concatenation of the domain name label and the regionalized DNS zone make",
                         "constraints": {
-                            "required": true,
                             "validationMessage": "Enter in a valid DNS name"
                         }
                     }
-                  
 
-                    ]
+
+                ]
             }
         ],
         "outputs": {
